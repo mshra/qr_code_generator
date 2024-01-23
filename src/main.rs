@@ -31,6 +31,11 @@ fn get_link() -> String {
 }
 
 fn save_qr_code(url: String) {
+    Command::new("mkdir")
+        .arg("output")
+        .spawn()
+        .expect("failed to create output directory.");
+
     let code = QrCode::new(url).unwrap();
     let image = code.render::<Luma<u8>>().build();
     image.save("./output/output.png").unwrap();
